@@ -12,6 +12,7 @@ Here are the few stuff to get started!
 3. Open [./src/scenes/about/main.c](src/scenes/about/main.c).
 4. Update `#include <demo_app_icons.h>` into `#include <{app_id}_icons.h>`.  
    If there is intelliSense error for missing variable, try rebuilding application.
+5. For easier debugging, change `APP_NAME` in [./src/main.h](src/main.h) to your own.
 
 ## Developer Resources
 
