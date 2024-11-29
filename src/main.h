@@ -4,6 +4,8 @@
 #include <gui/view_dispatcher.h>
 #include "scenes/import.h"
 
+#define APP_NAME "DemoApp"
+
 typedef struct App {
     SceneManager* scene_manager;
     ViewDispatcher* view_dispatcher;

@@ -20,10 +20,10 @@ int main() {
 
     view_dispatcher_run(app->view_dispatcher);
 
-    FURI_LOG_I("DemoApp", "Exiting application.");
+    FURI_LOG_I(APP_NAME, "Exiting application.");
     free_scenes(app);
 
-    FURI_LOG_I("DemoApp", "Freed app.");
+    FURI_LOG_I(APP_NAME, "Freed app.");
 
     return 0;
 }

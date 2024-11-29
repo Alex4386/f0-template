@@ -43,7 +43,10 @@ void register_scenes(App* app) {
         app->allocated_scenes = (void**)malloc(sizeof(void*) * AppSceneNum);
     }
 
-    view_dispatcher_enable_queue(app->view_dispatcher);
+    // No longer required:
+    //  - see https://developer.flipper.net/flipperzero/doxygen/deprecated.html
+    //
+    // view_dispatcher_enable_queue(app->view_dispatcher);
 
     view_dispatcher_set_event_callback_context(app->view_dispatcher, app);
     view_dispatcher_set_custom_event_callback(app->view_dispatcher, scene_handler_event_forwarder);
@@ -66,36 +69,36 @@ void register_scenes(App* app) {
  * Free all scenes.
  */
 void free_scenes(App* app) {
-    FURI_LOG_I("DemoApp", "Freeing scenes.");
+    FURI_LOG_I(APP_NAME, "Freeing scenes.");
     furi_assert(app != NULL, "App is NULL.");
     void* tmp;
 #define SCENE_ACTION(scene)                                                                    \
     if(app->allocated_scenes != NULL) {                                                        \
         tmp = app->allocated_scenes[scene];                                                    \
         app->allocated_scenes[scene] = NULL;                                                   \
-        FURI_LOG_I("DemoApp", "Freeing scene " STRINGIFY(scene) ".");                          \
+        FURI_LOG_I(APP_NAME, "Freeing scene " STRINGIFY(scene) ".");                           \
         if(tmp != NULL) scene##_free(tmp);                                                     \
-        FURI_LOG_I("DemoApp", "Free'd scene " STRINGIFY(scene) ".");                           \
+        FURI_LOG_I(APP_NAME, "Free'd scene " STRINGIFY(scene) ".");                            \
     }                                                                                          \
     if(app->view_dispatcher != NULL) view_dispatcher_remove_view(app->view_dispatcher, scene); \
-    FURI_LOG_I("DemoApp", "Removed from dispatcher " STRINGIFY(scene) ".");
+    FURI_LOG_I(APP_NAME, "Removed from dispatcher " STRINGIFY(scene) ".");
 
 #include "list.h"
 #undef SCENE_ACTION
 
-    FURI_LOG_I("DemoApp", "Freeing allocated scenes.");
+    FURI_LOG_I(APP_NAME, "Freeing allocated scenes.");
     furi_assert(app->allocated_scenes != NULL, "Allocated scenes is NULL.");
     free(app->allocated_scenes);
     app->allocated_scenes = NULL;
 
-    FURI_LOG_I("DemoApp", "Freeing View dispatcher.");
+    FURI_LOG_I(APP_NAME, "Freeing View dispatcher.");
     furi_assert(app->view_dispatcher != NULL, "View dispatcher is NULL.");
     view_dispatcher_free(app->view_dispatcher);
 
-    FURI_LOG_I("DemoApp", "Freeing SceneManager");
+    FURI_LOG_I(APP_NAME, "Freeing SceneManager");
     furi_assert(app->scene_manager != NULL, "Scene manager is NULL.");
     scene_manager_free(app->scene_manager);
 
-    FURI_LOG_I("DemoApp", "Freeing App");
+    FURI_LOG_I(APP_NAME, "Freeing App");
     free(app);
 }
