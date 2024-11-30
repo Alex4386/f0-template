@@ -17,14 +17,14 @@ AppHome* Home_alloc() {
 void Home_free(void* ptr) {
     AppHome* home = (AppHome*)ptr;
 
-    FURI_LOG_I("DemoApp", "Freeing Home.");
+    FURI_LOG_I(APP_NAME, "Freeing Home.");
     if(home == NULL) {
-        FURI_LOG_I("DemoApp", "Home is NULL.");
+        FURI_LOG_I(APP_NAME, "Home is NULL.");
         return;
     }
 
     if(home->view != NULL) {
-        FURI_LOG_I("DemoApp", "Freeing View.");
+        FURI_LOG_I(APP_NAME, "Freeing View.");
         view_free(home->view);
         home->view = NULL;
     }
@@ -33,13 +33,13 @@ void Home_free(void* ptr) {
     // but this is causing NULL pointer exception
 
     // if(home->menu != NULL) {
-    //     FURI_LOG_I("DemoApp", "Freeing Submenu.");
+    //     FURI_LOG_I(APP_NAME, "Freeing Submenu.");
     //     submenu_free(home->menu);
     //     home->menu = NULL;
     // }
 
     free(home);
-    FURI_LOG_I("DemoApp", "Home freed.");
+    FURI_LOG_I(APP_NAME, "Home freed.");
 }
 
 View* Home_get_view(void* ptr) {
@@ -60,14 +60,14 @@ void Home_on_submenu_item(void* context, uint32_t index) {
 
     switch(index) {
     case 0:
-        FURI_LOG_I("DemoApp", "Hello World");
+        FURI_LOG_I(APP_NAME, "Hello World");
         break;
     case 1:
-        FURI_LOG_I("DemoApp", "About");
+        FURI_LOG_I(APP_NAME, "About");
         scene_manager_next_scene(app->scene_manager, About);
         break;
     case 99:
-        FURI_LOG_I("DemoApp", "Exit");
+        FURI_LOG_I(APP_NAME, "Exit");
         Home_on_exit(app);
         view_dispatcher_stop(app->view_dispatcher);
         break;
@@ -109,12 +109,12 @@ void Home_on_exit(void* context) {
         return;
     }
 
-    FURI_LOG_I("DemoApp", "Exiting Home.");
+    FURI_LOG_I(APP_NAME, "Exiting Home.");
 
     Submenu* menu = home->menu;
     if(menu != NULL) {
         submenu_reset(menu);
     }
 
-    FURI_LOG_I("DemoApp", "Reset submenu complete.");
+    FURI_LOG_I(APP_NAME, "Reset submenu complete.");
 }

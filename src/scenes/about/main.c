@@ -35,7 +35,7 @@ void About_on_draw(Canvas* canvas, void* context) {
 
 void About_free(void* ptr) {
     AppAbout* home = (AppAbout*)ptr;
-    FURI_LOG_I("DemoApp", "Triggering Free for view");
+    FURI_LOG_I(APP_NAME, "Triggering Free for view");
 
     view_free(home->view);
     home->view = NULL;
